@@ -21,26 +21,35 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2"
 
 
 function Slider({
-
+  // VARIABLES DE LOGEO
   logeo, setLogeo,
   setLogeado,
 
+
+  // VARIABLES DE TICKETS
   getTickets,
   page, setPage,
   tickets, setTickets,
+  filtroTickets, setFiltroTickets,
 
+
+  // VARIABLES DE CONTEO
   getConteo, conteo, setConteo,
 
+
+  //VARIABLES DE MODAL
   getArea, areas, setAreas,
-
   getSede, sedes, setSedes,
-
   getIncidentes, incidentes, setIncidentes
+
 
 }) {
 
+
   let timer;
   const [vista, setVista] = useState("inicio")
+  const [open, setOpen] = useState(false);
+
 
   const enlaces = [
 
@@ -99,35 +108,49 @@ function Slider({
 
 
       case "mesa":
-        return <MesaAyuda logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} />;
+        return <MesaAyuda onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
 
       case "gestion":
-        return <GestionTi logeo={logeo} onClick={() => { setPage(1) }} />;
+        return <GestionTi onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
-
+        
       case "panel":
         return <TodosGraficos logeo={logeo} onClick={() => { setPage(1) }} />;
 
 
       default:
-        return <MesaAyuda logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} />;
+        return <MesaAyuda onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
 
     }
   }
 
+
   const [fechaHora, setFechaHora] = useState(new Date());
+
 
   useEffect(() => {
     const intervalo = setInterval(() => {
+
+
       setFechaHora(new Date());
+
+
     }, 60000);
 
+
     return () => clearInterval(timer);
+
+
   }, []);
+
+
   return (
     <div className="flex min-h-screen w-full bg-[#f4f8ff] font-din">
+
+
+
 
       {/* SIDEBAR */}
       <aside
@@ -176,8 +199,14 @@ function Slider({
         </div>
       </aside>
 
+
+
+
       {/* CONTENIDO */}
       <main className="flex flex-col flex-1 min-h-screen overflow-hidden">
+
+
+
 
         {/* TOPBAR */}
         <header className="h-24 bg-white/90 backdrop-blur shadow-sm flex items-center justify-between px-8">
@@ -234,6 +263,10 @@ function Slider({
           </div>
         </header>
 
+
+
+
+
         {/* ÁREA PRINCIPAL */}
         <section className="flex-1 overflow-auto p-8 relative">
 
@@ -251,82 +284,5 @@ function Slider({
       </main>
     </div>
   );
-  {/* return (
-    <div className='flex h-full w-fullmin-h-screen bg-azul-institucional'>
-
-
-      <aside className={`h-full bg-azul-institucional text-white transition-all duration-300 ${open ? "w-64" : "w-0"}`}>
-        <img src={logo} className="w-full h-22 mx-auto my-4 m-3" />
-        <hr />
-        <nav className='mt4'>
-          {enlacesFiltrados.map((item, index) => (
-            <div className="font-din"
-              key={index}
-
-              onClick={() => {
-                if (item.url) {
-                  window.open(item.url, "_blank");
-                } else {
-                  setVista(item.vista);
-                }
-              }}
-
-              className='mx-3 mb-2 cursor-pointer rounded px-4 py-3 flex felx-row items-center hover:bg-blue-500'
-            >
-              {item.logo}{item.nombre}
-            </div>
-          ))}
-        </nav>
-      </aside>
-
-
-      <main className="flex flex-col justify-center items-center w-full h-full">
-
-
-        <div className="flex items-center justify-center justify-between bg-gray-100 w-full  ">
-          {/* <button onClick={() => setOpen(!open)} className='m-2 rounded bg-gray-700 px-3 py-2 hover:bg-gray-600'>{open ? "Cerrar" : "Abrir"}</button> 
-
-          <div className="w-24 flex justify-center">
-            <IoMenu className="w-6 h-6 text-black-100" />
-          </div>
-
-          <div className="w-135 flex justify-start">
-            <input type="search" className="w-80 h-13 bg-gray-200 m-3" placeholder="   Buscar en la Intranet..." />
-          </div>
-
-          <div className="w-24 flex justify-center"></div>
-
-          <div className="w-24 flex justify-center"></div>
-
-          <div className="flex justify-center items-center w-60 ">
-            <img alt="" className="w-10 rounded-full m-3" />
-            <div>
-              <p className="m-0 font-semibold text-xs ">{logeo.nombre}</p>
-              <p className="text-sm m-0">Bienvenido a la Intranet!</p>
-            </div>
-          </div>
-
-          <div className="w-24 flex justify-center">
-            <select onChange={() => {
-
-              localStorage.removeItem("token");
-              localStorage.removeItem("usuario");
-              setLogeado(false);
-
-            }} name="" id="">
-              <option value="">Opciones</option>
-              <option value="">Cerrar Sesion</option>
-            </select>
-          </div>
-        </div>
-
-
-        {renderVista()}
-
-
-      </main>
-    </div>
-
-  );*/}
 }
 export default Slider;

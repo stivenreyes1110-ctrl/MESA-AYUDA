@@ -8,78 +8,189 @@ import {
 } from "react-icons/fa";
 import { TiMinus } from "react-icons/ti";
 
-function TablaMesaAyuda({ setAbrir, seleccionTicket, setSeleccionTicket, logeo, getTickets, page, setPage, tickets, setTickets, fechaHora, setFechaHora }) {
+
+function TablaMesaAyuda({
+
+
+    //VARIABLES DE LOGEO
+    logeo,
+
+
+    //VARIABLES DE TICKETS
+    seleccionTicket, setSeleccionTicket,
+    getTickets, 
+    page, setPage, 
+    tickets, setTickets,
+    filtroTickets, setFiltroTickets,
+
+
+    //VARIABLES DE FECHA
+    fechaHora, setFechaHora
+
+
+}) {
+
+
     const [filtro, setFiltro] = useState("TODOS");
     const [id_usuario, setId_usuario] = useState(logeo.id_usuario)
+    const cambiarFiltro = (estado) => {
+        setFiltroTickets(estado);
+        setPage(1);
+    };
 
-    console.log(((new Date(fechaHora) - new Date(tickets[0]?.HORAREGISTRO)) / (1000 * 60 * 60) % (1000 * 60 * 60)) / (1000 * 60)) - 18000000
 
+    /*console.log(((new Date(fechaHora) - new Date(tickets[0]?.HORAREGISTRO)) / (1000 * 60 * 60) % (1000 * 60 * 60)) / (1000 * 60)) - 18000000*/
 
 
     useEffect(() => {
+
+
         const iniciarTabla = async () => {
 
 
-            await getTickets(page, id_usuario);
+            await getTickets(page, id_usuario, filtroTickets);
 
 
         };
-        iniciarTabla();
-    }, [page]);
 
+
+        iniciarTabla();
+
+
+    }, [page, filtroTickets]);
+
+    
     return (
         <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
 
             {/* ENCABEZADO DE LA TABLA */}
-            <div className="px-6 py-4 border-b border-slate-100 bg-white flex items-center justify-between">
-                <h3 className="text-lg font-bold text-[#0b2756]">
-                    Tickets Registrados<p className="text-sm text-slate-500">
-                        Gestión y seguimiento de solicitudes
-                    </p>
-                </h3>
+            <div className="bg-white border-b border-slate-100 px-6 py-5">
 
+                {/* FILA 1 */}
+                <div className="flex items-center justify-between">
 
-                <button
-                     onClick={() => { setPage(page > 1 ? page - 1 : 1) }} 
-                    className="
-                flex items-center gap-3
-                bg-gradient-to-r from-[#0b5fd3] to-[#1976ff]
-                text-white
-                px-6 py-3
-                rounded-2xl
-                font-semibold
-                shadow-lg
-                hover:scale-105
-                hover:shadow-xl
-                transition-all
-                duration-300
-            "
-                >
-                   <TiMinus />
-                    Anterior
-                </button>
-                <p className="font-semibold text-xl text-blue-900">Pagina {page}</p>
-                <button
-                    onClick={() => { setPage(tickets.length > 9 ? page + 1 : page) }}
-                    className="
-                flex items-center gap-3
-                bg-gradient-to-r from-[#0b5fd3] to-[#1976ff]
-                text-white
-                px-6 py-3
-                rounded-2xl
-                font-semibold
-                shadow-lg
-                hover:scale-105
-                hover:shadow-xl
-                transition-all
-                duration-300
-            "
-                >
-                    <FaPlus />
-                    Siguiente
-                </button>
+                    <div>
+                        <h3 className="text-2xl font-bold text-[#0b2756]">
+                            Tickets Registrados
+                        </h3>
+
+                        <p className="text-sm text-slate-500 mt-1">
+                            Gestión y seguimiento de solicitudes
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+
+                        <button
+                            onClick={() => setPage(page > 1 ? page - 1 : 1)}
+                            className="
+                    w-11 h-11
+                    rounded-xl
+                    bg-slate-100
+                    text-slate-600
+                    hover:bg-slate-200
+                    transition
+                "
+                        >
+                            ←
+                        </button>
+
+                        <div className="
+                px-5 py-2
+                rounded-xl
+                bg-blue-50
+                text-blue-700
+                font-bold
+            ">
+                            Página {page}
+                        </div>
+
+                        <button
+                            onClick={() =>
+                                setPage(tickets.length > 9 ? page + 1 : page)
+                            }
+                            className="
+                    w-11 h-11
+                    rounded-xl
+                    bg-blue-600
+                    text-white
+                    hover:bg-blue-700
+                    transition
+                "
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+                </div>
+
+                {/* FILA 2 */}
+                <div className="flex items-center gap-3 mt-5 flex-wrap">
+
+                    <button
+                        onClick={() => cambiarFiltro("1")}
+                        className={`
+                px-5 py-2.5 rounded-xl text-sm font-semibold
+                flex items-center gap-2
+                transition
+                ${filtroTickets === "1"
+                                ? "bg-blue-600 text-white shadow-lg"
+                                : "bg-blue-50 text-blue-700"}
+            `}
+                    >
+                        <TiMinus />
+                        Por Asignar
+                    </button>
+
+                    <button
+                        onClick={() => cambiarFiltro("2")}
+                        className={`
+                px-5 py-2.5 rounded-xl text-sm font-semibold
+                flex items-center gap-2
+                transition
+                ${filtroTickets === "2"
+                                ? "bg-cyan-600 text-white shadow-lg"
+                                : "bg-cyan-50 text-cyan-700"}
+            `}
+                    >
+                        <TiMinus />
+                        En Proceso
+                    </button>
+
+                    <button
+                        onClick={() => cambiarFiltro("3")}
+                        className={`
+                px-5 py-2.5 rounded-xl text-sm font-semibold
+                flex items-center gap-2
+                transition
+                ${filtroTickets === "3"
+                                ? "bg-green-600 text-white shadow-lg"
+                                : "bg-green-50 text-green-700"}
+            `}
+                    >
+                        <TiMinus />
+                        Solucionados
+                    </button>
+
+                    <button
+                        onClick={() => cambiarFiltro("4")}
+                        className={`
+                px-5 py-2.5 rounded-xl text-sm font-semibold
+                flex items-center gap-2
+                transition
+                ${filtroTickets === "4"
+                                ? "bg-purple-600 text-white shadow-lg"
+                                : "bg-purple-50 text-purple-700"}
+            `}
+                    >
+                        <TiMinus />
+                        Todos
+                    </button>
+
+                </div>
+
             </div>
-
             {/* CONTENEDOR CON SCROLL */}
             <div className="h-[65vh] overflow-auto">
 
@@ -186,13 +297,13 @@ function TablaMesaAyuda({ setAbrir, seleccionTicket, setSeleccionTicket, logeo, 
                             let textoCompleto = `${dias} Dia(s) ${horas} Hora(s) ${minutos} Minuto(s)`
 
                             if (minutosTotales > 55) {
-                                color = "bg-red-100";
+                                color = "bg-red-400";
                             } else if (minutosTotales > 30) {
-                                color = "bg-orange-100";
+                                color = "bg-orange-400";
                             } else if (minutosTotales > 20) {
-                                color = "bg-yellow-100";
+                                color = "bg-yellow-400";
                             } else {
-                                color = "bg-green-100";
+                                color = "bg-green-400";
                             }
                             return (
 
@@ -278,7 +389,7 @@ function TablaMesaAyuda({ setAbrir, seleccionTicket, setSeleccionTicket, logeo, 
                                     {/* TIEMPO */}
                                     <td className="px-6 py-5 whitespace-nowrap text-center">
 
-                                        <span className="px-4 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">
+                                        <span className={`px-4 py-1 rounded-full ${color} text-white text-xs font-bold`}>
                                             {textoCompleto}
                                         </span>
 
@@ -340,150 +451,3 @@ function TablaMesaAyuda({ setAbrir, seleccionTicket, setSeleccionTicket, logeo, 
 }
 
 export default TablaMesaAyuda;
-
-/*
-    return (
-        <div className="bg-white rounded-xl shadow-sm  overflow-hidden">
-
-            {/* FILTROS 
-            <div className="p-4  flex items-center gap-3 flex-wrap">
-
-                <div className="relative">
-                    <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
-
-                    <input
-                        type="text"
-                        placeholder="Buscar..."
-                        className="pl-8 pr-3 py-2 rounded-lg text-sm"
-                    />
-                </div>
-
-                <button
-                    onClick={() => setFiltro("TODOS")}
-                    className={`px-3 py-2  rounded-lg text-sm hover:bg-blue-100 ${filtro === "TODOS"
-                        ? "bg-blue-300"
-                        : "bg-gray-100"}`}>
-                    Todos
-                </button>
-
-                <button
-                    onClick={() => setFiltro("EN PROCESO")}
-                    className={`px-3 py-2  rounded-lg text-sm hover:bg-blue-100 ${filtro === "EN PROCESO" ? "bg-blue-300" : "bg-gray-100"}`}>
-                    En Proceso
-                </button>
-
-                <button
-                    onClick={() => setFiltro("CERRADO")}
-                    className={`px-3 py-2  rounded-lg text-sm hover:bg-blue-100 ${filtro === "CERRADO" ? "bg-blue-300" : "bg-gray-100"}`}>
-                    Cerrados
-                </button>
-
-                <button onClick={() => { setPage(page > 1 ? page - 1 : 1) }} className="hover:bg-blue-900">Atras</button>
-                <p>Pagina {page}</p>
-                <button onClick={() => { setPage(tickets.length > 9 ? page + 1 : page) }} className="hover:bg-blue-900">Siguiente</button>
-
-            </div>
-
-            {/* TABLA 
-            <div className="overflow-auto">
-
-                <table className="w-full text-sm">
-
-                    <thead className="bg-gray-50  text-gray-500 uppercase text-xs">
-                        <tr>
-                            <th className="px-4 py-3 text-left">ID</th>
-                            <th className="px-4 py-3 text-center">IP/VNC</th>
-                            <th className="px-4 py-3 text-left">DEPENDENCIA</th>
-                            <th className="px-4 py-3 text-left">SOLICITUD</th>
-                            <th className="px-4 py-3 text-left">PRIORIDAD</th>
-                            <th className="px-4 py-3 text-left">ESTADO</th>
-                            <th className="px-4 py-3 text-center">FECHA</th>
-                            <th className="px-4 py-3 text-center">CONTESTACION</th>
-                            <th className="px-4 py-3 text-center">SOLICITANTE</th>
-                            <th className="px-4 py-3 text-center">ASIGNADO</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {tickets.filter((ticket) => {
-                            if (filtro === "TODOS") return true
-                            return ticket.ESTADO === filtro;
-
-                        }).map((ticket) => {
-                            let color = "";
-                            const fecha1 = new Date(fechaHora);
-                            const fecha2 = new Date(ticket.HORAREGISTRO);
-                            const diferencia = Math.abs(fecha1.getTime() - fecha2.getTime())-18000000;
-
-                            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-
-                            const horas = Math.floor(
-                                (diferencia % (1000 * 60 * 60 * 24)) /
-                                (1000 * 60 * 60)
-                            );
-
-                            const minutos = Math.floor(
-                                (diferencia % (1000 * 60 * 60)) /
-                                (1000 * 60)
-                            );
-
-                            const minutosTotales = Math.floor(
-                                diferencia / (1000 * 60)
-                            );
-                            console.log(`TKT-${ticket.ID_TICKET}: DIFERENCIA EN DIAS: `, minutosTotales)
-                            let textoCompleto = `Dias ${dias} Horas ${horas} Minutos ${minutos}`
-
-                            if (minutosTotales > 55) {
-                                color = "bg-red-100";
-                            } else if (minutosTotales > 30) {
-                                color = "bg-orange-100";
-                            } else if (minutosTotales > 20) {
-                                color = "bg-yellow-100";
-                            } else {
-                                color = "bg-green-100";
-                            }
-
-                            return (
-                                <tr
-                                    key={ticket.ID_TICKET}
-                                    className={` hover:bg-gray-50`}>
-
-                                    <td className="px-4 py-3">TKT-#{ticket.ID_TICKET}</td>
-                                    <td className="px-4 py-3">{ticket.DIRIP}</td>
-                                    <td className="px-4 py-3"><div><div>{ticket.AREA}</div><div className="text-xs text-gray-400 font-semibold">{ticket.SEDE}</div></div></td>
-                                    <td className="px-4 py-3"><div><div className="uppercase">{ticket.DESCRIPCION}</div><div className="uppercase text-xs text-gray-400 font-semibold">{ticket.INCIDENTE}</div></div></td>
-                                    <td className={`px-4 py-3 `}><div className={`flex justify-center items-center  rounded-lg text-xs h-5 ${ticket.PRIORIDAD === "MEDIA" ? "bg-blue-100" : ticket.PRIORIDAD === "BAJA" ? "bg-red-100" : "bg-green-100"}`}>{ticket.PRIORIDAD}</div></td>
-                                    <td className="px-4 py-3"><div className={`flex justify-center items-center rounded-lg text-xs h-5 ${ticket.ESTADO === "EN PROCESO" ? "bg-blue-200" : ticket.ESTADO === "CERRADO" ? "bg-red-200" : "bg-green-200"}`}>{ticket.ESTADO}</div></td>
-                                    <td className="px-4 py-3">
-
-                                        {/*  {ticket.HORAREGISTRO.split("T")[0]
-        .split("-")
-        .reverse()
-        .join("/")}
-
-    {" "}
-
-    {ticket.HORAREGISTRO.split("T")[1].substring(0,5)} 
-                                        {ticket.HORAREGISTRO}
-                                    </td>
-                                    <td className={`px-4 py-3 text-xs ${color}`} >{
-
-
-                                        textoCompleto
-
-                                    }</td>
-
-                                    <td className="px-4 py-3 text-xs">{ticket.CONTESTACION ?? "SIN RESPUESTA"}</td>
-                                    <td className="px-4 py-3 text-xs">{ticket.USUARIO_SOLICITANTE}</td>
-                                    <td className="px-4 py-3 text-xs" >{ticket.USUARIO_ASIGNADO ?? 'AUN NO ESTA ASIGNADO'}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-
-                </table>
-
-            </div>
-        </div>
-    )
-}*/

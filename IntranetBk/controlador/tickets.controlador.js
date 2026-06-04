@@ -9,7 +9,8 @@ const losTickets = async (req, res) => {
     const { page } = req.params;
     const { id_usuario } = req.params;
     const { idsoporte } = req.params;
-    const ticket = await ticketsServie.losTickets(page,id_usuario,idsoporte);
+    const {filtroTickets} = req.params;
+    const ticket = await ticketsServie.losTickets(page,id_usuario,idsoporte,filtroTickets);
     res.json(ticket)
   } catch (error) {
     console.log(error)

@@ -1,8 +1,8 @@
 const incidentesService = require('../servicios/incidentes.servicios')
 
- 
+
 //CONTROLADOR DE INCIDENTES
-const losIncidentes =  async (req ,res) => {
+const losIncidentes = async (req, res) => {
     try {
 
 
@@ -29,4 +29,4 @@ const losIncidentes =  async (req ,res) => {
 }
 
 
-module.exports={losIncidentes}
+module.exports = { losIncidentes }

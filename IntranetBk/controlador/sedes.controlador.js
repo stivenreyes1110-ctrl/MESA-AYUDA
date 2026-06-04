@@ -2,11 +2,13 @@ const sedesService = require('../servicios/sedes.servicios')
 
 
 //CONTROLADOR DE SEDES
-const lasSedes = async (req,res) => {
+const lasSedes = async (req, res) => {
     try {
 
 
         console.log('4.SE HIZO UNA CONSULTA DE SEDES')
+        console.log(" ");
+        console.log(" ");
 
 
         const sedes = await sedesService.lasSedes()
@@ -29,7 +31,7 @@ const lasSedes = async (req,res) => {
 
         })
     }
-} 
+}
 
 
 module.exports = {
@@ -37,5 +39,5 @@ module.exports = {
 
     lasSedes
 
-    
+
 }

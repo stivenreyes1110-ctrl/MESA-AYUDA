@@ -11,7 +11,7 @@ const losLogin = async (req, res) => {
         console.log('--EMPIEZA PROCESO DE LOGIN');
 
 
-        const login = await loginService.losLogin(req.body,req);
+        const login = await loginService.losLogin(req.body, req);
 
 
         return res.json(login);
@@ -22,7 +22,7 @@ const losLogin = async (req, res) => {
 
         console.log(error);
 
-        
+
         const esCredencialInvalida = error.message === "Usuario no encontrado" || error.message === "Contraseña incorrecta";
 
 
@@ -33,10 +33,10 @@ const losLogin = async (req, res) => {
 };
 
 
-module.exports = { 
-    
-    
-    losLogin 
+module.exports = {
+
+
+    losLogin
 
 
 };

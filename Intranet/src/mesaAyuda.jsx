@@ -14,29 +14,41 @@ import TablaMesaAyuda from "./mesaAyuda/mesaAyuda.tabla";
 
 
 function MesaAyuda({ 
-   usuario, logeo,
+
+
+   //VARIABLES DE USUARIO
+   usuario,getUsuarios, 
    
-  
+
+   //VARIABLES DE LOGEO
+   logeo,
+   
+
+  //VARIABLES DE TICKETS
+   getTickets, tickets, setTickets, 
+   page, setPage, 
+   filtroTickets, setFiltroTickets,
+
+
+   //VARIABLE DE AREAS
    getArea , areas, 
-   
-   getUsuarios, 
-   
-   getConteo,
-   
-   page, setPage,
-   
-   getTickets, 
-   tickets, setTickets  
-   
-   ,conteo, setConteo,
-   
-   getSede, 
-   sedes, setSedes,
 
-   getIncidentes,
-   incidentes,setIncidentes,
 
-   fechaHora, setFechaHora
+   //VARIABLE DE CONTEO
+   getConteo,conteo, setConteo,
+   
+
+   //VARIABLE DE SEDES
+   getSede,sedes, setSedes,
+
+
+   //VARIABLE DE INCIDENTES
+   getIncidentes,incidentes,setIncidentes,
+
+
+   //VARIABLE DE FECHA HORA
+   fechaHora, setFechaHora,
+
 
 }) {
 
@@ -56,52 +68,78 @@ function MesaAyuda({
          {/* HEADER */}
          <HeaderMesaAyuda
 
+
             setModalAbierto={setModalAbierto}
+
 
             fechaHora={fechaHora}
             setFechaHora={setFechaHora}
+
 
          />
 
          {/* CARDS */}
          <TajertasMesaAyuda
+
+
             logeo={logeo}
+
 
             getConteo={getConteo}
             conteo={conteo}
+
+
          />
 
          {/* TABLA */}
          <TablaMesaAyuda
-            setAbrir={setAbrir}
-            seleccionTicket={seleccionTicket}
-            setSeleccionTicket={setSeleccionTicket}
+
+
+            //VARIABLE DE LOGEO
             logeo={logeo}
 
 
+            //VARIABLES DE TICKET POR USUARIO
+            seleccionTicket={seleccionTicket}
+            setSeleccionTicket={setSeleccionTicket}
             getTickets={getTickets}
             page={page}
             setPage={setPage}
             tickets={tickets}
             setTickets={setTickets}  
-            
+            setFiltroTickets={setFiltroTickets}
+            filtroTickets={filtroTickets}
+
+
+            //VARIABLE DE FECHA HORA
             fechaHora={fechaHora}
             setFechaHora={setFechaHora}
+
+            
          />
+
+
          {/* MODAL */}
          <ModalMesaAyuda
 
+
+            //VARIABLE DE ABRIR
             modalAbierto={modalAbierto}
             setModalAbierto={setModalAbierto}
 
+            //VARIBLE DE LOGEO
             logeo={logeo}
-            getTickets={getTickets}
 
+
+            //VARIABLES DE TICKET POR USUARIO
+            getTickets={getTickets}
             tickets={tickets}
             setTickets={setTickets}
             page={page}
             setPage={setPage}
 
+
+            //VARIABLES MODAL
             getArea={getArea}
             areas={areas}
 

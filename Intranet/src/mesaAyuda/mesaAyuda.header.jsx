@@ -67,47 +67,8 @@ function HeaderMesaAyuda({ setModalAbierto, fechaHora, setFechaHora }) {
             </div>
 
         </div>);
-    {/*
-return (
 
-        <div className="flex items-center justify-between">
-
-
-            <div className="flex items-center gap-3">
-
-
-                <div className="bg-blue-100 w-11 h-11 rounded-xl flex items-center justify-center">
-                    <FaHeadset className="text-blue-600 text-lg" />
-                </div>
-
-
-                <div>
-                    <h1 className="text-xl font-bold text-gray-800">
-                        Mesa de Ayuda
-                    </h1>
-                    <p className="text-sm text-gray-400">
-                        Gestión de tickets
-                    </p>
-                    <p className="text-sm text-gray-400">
-                        {fechaHora.toLocaleDateString()} {fechaHora.toLocaleTimeString()}
-                    </p>
-                </div>
-
-
-            </div>
-
-
-            <button
-                onClick={() => setModalAbierto(true)}
-                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700"
-            >
-                <FaPlus className="text-xs" />
-                Crear Ticket
-            </button>
-
-
-        </div>
-    )*/}
+        
 }
 
 export default HeaderMesaAyuda;

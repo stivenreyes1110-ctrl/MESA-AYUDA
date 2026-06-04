@@ -8,11 +8,11 @@ const jwt = require('jsonwebtoken');
 const { conexion } = require('../config/db');
 
 
-const losLogin = async ({  usuario, password }, req) => {
+const losLogin = async ({ usuario, password }, req) => {
 
-    
+
     const pool = await conexion();
-    
+
 
     let direccionIpUsuario = req.ip || req.connection.remoteAddress
     direccionIpUsuario = direccionIpUsuario.replace("::ffff:", "");
@@ -56,6 +56,8 @@ const losLogin = async ({  usuario, password }, req) => {
 
 
     console.log('--ESTA INGRESANDO EL USUARIO:', usuarioConsultado.NOMBRE)
+    console.log(" ");
+    console.log(" ");
 
 
     const hashIngresado = crypto.createHash('sha256').update(password).digest('hex').toUpperCase();

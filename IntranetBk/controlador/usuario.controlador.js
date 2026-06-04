@@ -8,6 +8,8 @@ const losUsuarios = async (req, res) => {
 
 
         console.log('2.SE HIZO UNA CONSULTA DE USUARIOS')
+        console.log(" ");
+        console.log(" ");
 
 
         const usuarios = await usuarioService.losUsuarios();

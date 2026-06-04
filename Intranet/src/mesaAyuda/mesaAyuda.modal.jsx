@@ -30,6 +30,8 @@ function ModalMesaAyuda({
     const [usuarios, setUsuarios] = useState("");
     const [direccion, setDireccion] = useState(logeo.ip);
 
+    const [seleccionSede , setSeleccionSede] = useState("");
+
 
     useEffect(() => {
 
@@ -146,9 +148,11 @@ return (
                     className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-400"
                 >
                     <option value="">-- Área --</option>
-                    {areas.map((area) => (
+                    {areas.filter((area) => area.IDSEDE === Number(sede)).map((area) => (
+
+                        
                         <option key={area.ID} value={area.ID}>
-                            PISO {area.PISO}, {area.NOMBRE}, {area.SEDE}
+                           PISO{area.PISO} {area.NOMBRE}
                         </option>
                     ))}
                 </select>
@@ -157,7 +161,7 @@ return (
                     value={ubicacion}
                     onChange={(e) => setUbicacion(e.target.value)}
                     className="md:col-span-2 h-12 rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="Ubicación"
+                    placeholder="Descripción de la ubicación física"
                 />
 
                 <textarea

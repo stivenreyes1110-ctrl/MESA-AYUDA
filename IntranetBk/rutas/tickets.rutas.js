@@ -9,7 +9,7 @@ const ticketsControlador = require('../controlador/tickets.controlador');
 //RUTAS DE TICKETS
 
 
-router.get('/tickets/:page/:id_usuario/:idsoporte', ticketsControlador.losTickets );
+router.get('/tickets/:page/:id_usuario/:idsoporte/:filtroTickets', ticketsControlador.losTickets );
 
 
 /*router.get('/tickets/usuario/:page/:id_usuario', ticketsControlador.losTicketsUsuarios);*/

@@ -34,16 +34,36 @@ app.use('/api', rutaConteo)
 app.use('/api', rutaLogin)
 
 
-//6. TICKETS PRINCIPAL MESA AYUDA
-app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
+//2. TICKETS PRINCIPAL MESA AYUDA
+app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req, res) => {
     try {
 
 
-        const { page, id_usuario } = req.params;
+
+        let anexo = "";
 
 
-        console.log("6.ENTRO A TICKETS MESA DE AYUDA POR USUARIO:", id_usuario, "PAGE:", page);
-        
+        const { page, id_usuario, filtroTickets } = req.params;
+
+
+        console.log("2.ENTRO A TICKETS MESA DE AYUDA POR USUARIO:", id_usuario, "PAGE:", page, "FILTRO TICKETS: ", filtroTickets);
+        console.log(" ")
+        console.log(" ")
+
+        if (filtroTickets === '1' || filtroTickets === '2' || filtroTickets === '3') {
+
+
+            anexo = `  AND T.ESTADO = ${filtroTickets} `
+
+
+        } else {
+
+
+            anexo = "";
+
+
+        }
+
 
         const pool = await conexion();
 
@@ -52,8 +72,6 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
             .input("id_usuario", sql.Int, id_usuario)
             .input("page", sql.Int, page)
             .query(`
-    
-
                 SELECT 
                     T.ID AS ID_TICKET,
                     T.DIRIP,
@@ -64,7 +82,6 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
                     T.DESCRIPCION,
                     T.CONTESTACION, 
                     T.IDSOPORTE,
-
                     US.NOMBRE AS USUARIO_ASIGNADO,
 
                     I.NOMBRE AS INCIDENTE,
@@ -73,13 +90,13 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
                     M.NOMBRE AS MESA_AYUDA,
                     U.ID AS ID_SOLICITANTE,
                     U.NOMBRE AS USUARIO_SOLICITANTE,
-
                     CASE 
                         WHEN T.ESTADO = 1 THEN 'POR ASIGNAR'
                         WHEN T.ESTADO = 2 THEN 'EN PROCESO'
                         WHEN T.ESTADO = 3 THEN 'SOLUCIONADO'
                         ELSE 'SIN ESTADO'
                     END AS ESTADO
+
 
                 FROM TICKETSMESA T
 
@@ -104,7 +121,7 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
                 LEFT JOIN USUARIOSMESA US
                     ON S.IDUSUARIO = US.ID
 
-                WHERE U.ID = @id_usuario
+                WHERE U.ID = @id_usuario ${anexo}
 
                 ORDER BY T.HORAREGISTRO DESC    
 
@@ -115,7 +132,7 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
 `)
 
 
-       await res.json(result.recordset);
+        await res.json(result.recordset);
 
 
     } catch (error) {
@@ -136,4 +153,6 @@ app.get('/api/filtro/:page/:id_usuario',validarToken, async (req, res) => {
 
 app.listen(3011, () => {
     console.log('🚀 Servidor en puerto 3011');
-});
+    console.log(" ");
+    console.log(" ");
+});             

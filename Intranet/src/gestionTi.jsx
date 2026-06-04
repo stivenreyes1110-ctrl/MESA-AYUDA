@@ -14,7 +14,7 @@ import TablaGestionTi from "./gestionTI/gestionTi.tabla";
 import AsignacioGestionTi from "./gestionTI/gestionTi.asignacion";
 import Proceso from "./gestionTI/gestionTi.proceso";
 
-function GestionTi({ logeo }) {
+function GestionTi({ logeo, fechaHora ,filtroTickets,setFiltroTickets}) {
    const [modalAbierto, setModalAbierto] = useState(false);
    const [abrir, setAbrir] = useState(false);
    const [seleccionTicket, setSeleccionTicket] = useState(null)
@@ -33,18 +33,20 @@ function GestionTi({ logeo }) {
 
    const [page, setPage] = useState(1);
 
-   
-    const [idsoporte, setIdSoporte] = useState(logeo.id);
+
+   const [idsoporte, setIdSoporte] = useState(logeo.id);
    const [id_usuario, setIdUsuario] = useState(logeo.id_usuario);
 
-  
- useEffect(() => {
-      getTickets();
    
-   }, [page]);
+
+
+   useEffect(() => {
+      getTickets();
+
+   }, [page,filtroTickets]);
    const getTickets = async () => {
       try {
-         const res = await fetch(`http://128.0.18.50:3011/api/tickets/${page}/${id_usuario}/${idsoporte}`);
+         const res = await fetch(`http://128.0.18.50:3011/api/tickets/${page}/${id_usuario}/${idsoporte}/${filtroTickets}`);
          const data = await res.json();
          setTickets(data);
       } catch (error) {
@@ -58,28 +60,46 @@ function GestionTi({ logeo }) {
 
          {/* HEADER */}
          <HeaderGestionTi
-            modalAbierto={modalAbierto}
-            setModalAbierto={setModalAbierto}
+
+
+            fechaHora={fechaHora}
+
+
          />
 
          {/* CARDS */}
-         <TajertasGestionTi 
-         logeo={logeo}
+         <TajertasGestionTi
+
+
+            logeo={logeo}
+
+
          />
 
          {/* TABLA */}
          <TablaGestionTi
+
+
             setAbrir={setAbrir}
+
+
             seleccionTicket={seleccionTicket}
             setSeleccionTicket={setSeleccionTicket}
             setOpen={setOpen}
             tickets={tickets}
+            page={page}
+            setPage={setPage}
+            filtroTickets={filtroTickets}
+            setFiltroTickets={setFiltroTickets}
+
+
             respuesta={respuesta}
             setRespuesta={setRespuesta}
+
+
             logeo={logeo}
-          page={page}
-            setPage={setPage}
-           
+
+
          />
 
          <AsignacioGestionTi
@@ -90,7 +110,7 @@ function GestionTi({ logeo }) {
             getTickets={getTickets}
             page={page}
             setPage={setPage}
-            
+
          />
 
 
@@ -102,7 +122,7 @@ function GestionTi({ logeo }) {
             getTickets={getTickets}
             page={page}
             setPage={setPage}
-   
+
 
          />
 

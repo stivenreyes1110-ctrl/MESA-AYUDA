@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import Slider from './slider';
 import Login from './login';
+import './App.css';
+
 
 
 function App() {
 
 
+  //VARIABLES DE LOGEO
   const [logeado, setLogeado] = useState(false);
   const [logeo, setLogeo] = useState([])
 
 
   //VARIABLES DATOS FETCH PRINCIPALES
+
+
   //✔ AREAS
   const [areas, setAreas] = useState([])
+
 
   //✔ SEDES
   const [sedes, setSedes] = useState([])
@@ -24,9 +29,12 @@ function App() {
   //✔ INCIDENTES
   const [incidentes, setIncidentes] = useState([])
 
+
   //✔ TICKETS
   const [tickets, setTickets] = useState([])
+  const [filtroTickets, setFiltroTickets] = useState('3');
   const [page, setPage] = useState(1);
+
 
   //✔ CONTEO
   const [conteo, setConteo] = useState([])
@@ -54,26 +62,10 @@ function App() {
 
           console.log("SE ESTAN INCIANDO LOS FETCH PRINCIPALES DE APP.JSX");
           console.log("1.Datos de logeo: ", usuario);
+
+
           let id_usuario = usuario.id_usuario;
           let id = usuario.id_usuario;
-
-
-          /* await getUsuarios();*/
-
-          //✔ TICKETS - TABLA MESA DE AYUDA
-          /* await getTickets(page,id_usuario);*/
-
-          //✔ CONTEO - TARJETAS DE MESA DE AYUDA
-          /*await getConteo(id);*/
-
-          //✔ AREAS - MODAL MESA DE AYUDA
-          /*await getArea();;*/
-
-          //✔ SEDES - MODAL MESA DE AYUDA
-          /*await getSede();*/
-
-          //✔ INCIDENTES - MODAL MESA DE AYUDA
-          /*await getIncidentes();*/
 
 
         }
@@ -96,15 +88,19 @@ function App() {
 
 
   //FETCH PRINCIPAL 
-  ///✔AREAS
+  ///✔ AREAS
   const getArea = async () => {
     try {
 
       const respuesta = await fetch("http://128.0.18.50:3011/api/areas", {
+
+
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${logeo.token}`
+
+
         }
       })
 
@@ -130,7 +126,11 @@ function App() {
 
 
       console.log(error)
-       setLogeado(false);
+
+
+      setLogeado(false);
+
+
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
 
@@ -138,7 +138,7 @@ function App() {
   }
 
 
-  //✔SEDES
+  //✔ SEDES
   const getSede = async () => {
     try {
 
@@ -147,11 +147,17 @@ function App() {
         {
           method: "GET",
           headers: {
+
+
             "Content-Type": "application/json",
             "Authorization": `Bearer ${logeo.token}`
+
+
           }
         }
       )
+
+
       const data = await respuesta.json()
 
 
@@ -177,7 +183,7 @@ function App() {
   }
 
 
-  //USUARIOS
+  //✔ USUARIOS
   const getUsuarios = async () => {
     try {
 
@@ -205,14 +211,14 @@ function App() {
 
 
       console.log(error)
-       setLogeado(false);
+      setLogeado(false);
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
 
     }
   }
 
-  //✔NCIDENTES
+  //✔ INCIDENTES
   const getIncidentes = async () => {
     try {
 
@@ -239,7 +245,7 @@ function App() {
 
 
       console.log(error)
-       setLogeado(false);
+      setLogeado(false);
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
 
@@ -252,7 +258,7 @@ function App() {
     try {
 
 
-      const res = await fetch(`http://128.0.18.50:3011/api/filtro/${page}/${id_usuario}`, {
+      const res = await fetch(`http://128.0.18.50:3011/api/filtro/${page}/${id_usuario}/${filtroTickets}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -260,7 +266,8 @@ function App() {
         }
       });
 
-      /*console.log("ID USUARIO EN GETTICKETS DE APP.JSX: ", res)*/
+
+      console.log("ID USUARIO EN GETTICKETS DE APP.JSX: ", res)
 
 
       const data = await res.json();
@@ -280,13 +287,14 @@ function App() {
 
       console.log("Error de red:", error);
 
-       setLogeado(false);
+      setLogeado(false);
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
     }
   }
 
-  //✔CONTEO
+
+  //✔ CONTEO
   const getConteo = async (id) => {
     try {
 
@@ -309,12 +317,13 @@ function App() {
 
 
       console.log(error)
-       setLogeado(false);
+      setLogeado(false);
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
 
     }
   }
+
 
   return (
 
@@ -324,32 +333,41 @@ function App() {
       {/*PANTALLA PRINCIPAL*/}
       {logeado ? (<Slider
 
-        //✔ LOGEO
-        logeo={logeo} setLogeado={setLogeado}
 
-        //✔ TICKETS
+        //✔ VARIABLE DE LOGEO
+        logeo={logeo} setLogeado={setLogeado}
+ 
+
+        //✔ VARIABLE DE TICKETS
         getTickets={getTickets}
         tickets={tickets}
         setTickets={setTickets}
         page={page} setPage={setPage}
+        setFiltroTickets={setFiltroTickets}
+        filtroTickets={filtroTickets}
 
-        //✔ CONTEO
+
+        //✔ VARIABLE DE CONTEO
         getConteo={getConteo}
         conteo={conteo} setConteo={setConteo}
 
-        //✔ MODAL
+
+        //✔ VARIABLE DE MODAL
         areas={areas} setAreas={setAreas}
         getArea={getArea}
 
-        //✔ SEDES
+
+        //✔VARIABLE DE SEDES
         sedes={sedes} setSedes={setSedes}
         getSede={getSede}
         usuarios={usuarios}
 
-        //✔ INCIDENTES
+
+        //✔VARIABLE DE INCIDENTES
         getIncidentes={getIncidentes}
         incidentes={incidentes}
         setIncidentes={setIncidentes}
+
 
       />)
 

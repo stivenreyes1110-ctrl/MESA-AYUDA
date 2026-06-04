@@ -12,6 +12,8 @@ const losIncidentes = async () => {
 
 
     console.log('--SE HIZO UNA CONSULTA DE INCIDENTES')
+    console.log(" ");
+    console.log(" ");
 
 
     const resultado = await sql.query(
@@ -36,5 +38,5 @@ module.exports = {
 
     losIncidentes
 
-    
+
 }

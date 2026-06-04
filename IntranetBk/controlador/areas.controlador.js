@@ -2,11 +2,13 @@ const express = require('express')
 const areaServices = require('../servicios/areas.servicios');
 
 //2. CONTROLADOR DE AREAS
-const lasAreas = async (req,res) =>{
+const lasAreas = async (req, res) => {
     try {
 
 
-        console.log ('3.SE HIZO UNA CONSULTA DE AREAS');
+        console.log('3.SE HIZO UNA CONSULTA DE AREAS');
+        console.log(" ");
+        console.log(" ");
 
 
         const areas = await areaServices.lasAreas();
@@ -14,7 +16,7 @@ const lasAreas = async (req,res) =>{
 
         res.json(areas)
 
-        
+
     } catch (error) {
 
 
@@ -24,7 +26,7 @@ const lasAreas = async (req,res) =>{
         res.status(500).json({
 
 
-            error:'Error del servidor'
+            error: 'Error del servidor'
 
 
         })

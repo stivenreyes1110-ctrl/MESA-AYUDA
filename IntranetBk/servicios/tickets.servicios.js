@@ -1,15 +1,31 @@
 const sql = require('mssql');
 const { conexion } = require('../config/db');
 
-const losTickets = async (page, id_usuario, idsoporte) => {
+const losTickets = async (page, id_usuario, idsoporte, filtroTickets) => {
     await conexion();
     console.log('ID USUARIO EN SERVICIO DE TICKETS:', id_usuario);
     console.log('ID SOPORTE EN SERVICIO DE TICKETS:', idsoporte);
     console.log('PAGE EN SERVICIO DE TICKETS:', page);
-        let anexo = '';
-    if(id_usuario == 372  || id_usuario == 531 || id_usuario == 972 || id_usuario == 1892) {
+    console.log('filtro', filtroTickets)
+    let anexo = '';
+    let anexo2 = '';
+    if (id_usuario == 372 || id_usuario == 531 || id_usuario == 972 || id_usuario == 1892) {
         anexo = `WHERE T.IDSOPORTE  = ${idsoporte}`;
-    }   
+        if (filtroTickets === '1' || filtroTickets === '2' || filtroTickets === '3') {
+            anexo2 = `  AND T.ESTADO = ${filtroTickets} `
+        }
+
+    } else {
+        anexo = "";
+        if (filtroTickets === '1' || filtroTickets === '2' || filtroTickets === '3') {
+            anexo2 = `  WHERE T.ESTADO = ${filtroTickets} `
+        } else {
+            anexo2 = ``
+        }
+    }
+
+
+
     const resultado = await sql.query(`
 SELECT 
     T.ID AS ID_TICKET,
@@ -59,7 +75,8 @@ LEFT JOIN SOPORTESMESA S
 LEFT JOIN USUARIOSMESA US
     ON S.IDUSUARIO = US.ID
     ${anexo}
-ORDER BY T.ID DESC
+    ${anexo2}
+ORDER BY T.HORAREGISTRO DESC
 
 OFFSET ${(page - 1) * 10} ROWS
 FETCH NEXT 10 ROWS ONLY;
@@ -83,7 +100,7 @@ const crearLosTickets = async (datos) => {
     request.input("ubicacion", sql.VarChar, datos.ubicacion);
     request.input("direccion", sql.VarChar, datos.direccion);
     request.input("idusuario", sql.Int, datos.logeo.id_usuario);
-    
+
 
     const resultado = await request.query(`
     INSERT INTO TICKETSMESA
@@ -153,7 +170,7 @@ const ticketsPorUsuarioSoporte = async (id_soporte) => {
           SELECT * FROM TICKETSMESA
           WHERE IDSOPORTE = @id_soporte
         `;
-}  
+}
 /*const losTicketsUsuarios = async (page, id_usuario ) => {
 
 
@@ -237,4 +254,4 @@ if (isNaN(page) || isNaN(id_usuario)) {
 }
 */
 
-module.exports = { losTickets, crearLosTickets, asiganrUsuarios ,ticketsPorUsuarioSoporte/*, losTicketsUsuarios */};
+module.exports = { losTickets, crearLosTickets, asiganrUsuarios, ticketsPorUsuarioSoporte/*, losTicketsUsuarios */ };
