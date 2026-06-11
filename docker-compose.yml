@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./IntranetBk
+    container_name: intranet-backend
+    ports:
+      - "3011:3011"
+    volumes:
+      - ./IntranetBk:/app
+      - /app/node_modules
+    restart: always
+
+  frontend:
+    build:
+      context: ./Intranet
+    container_name: intranet-frontend
+    ports:
+      - "3012:3012"
+    volumes:
+      - ./Intranet:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: always

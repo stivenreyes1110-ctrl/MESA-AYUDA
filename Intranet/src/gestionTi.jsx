@@ -136,6 +136,7 @@ function GestionTi({ logeo, fechaHora ,filtroTickets,setFiltroTickets}) {
             getTickets={getTickets}
             page={page}
             setPage={setPage}
+            logeo={logeo}
 
          />
 

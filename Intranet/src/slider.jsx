@@ -67,19 +67,26 @@ function Slider({
       logo: <FaComputer className="m-2 text-lg" />,
       roles: [2]
     },
-
+        {
+      nombre: "Inventario de area",
+      vista:"inventario",
+      logo: <GiTakeMyMoney className="m-2 text-lg" />,
+      roles: [2]
+    },
 
     {
       nombre: "panel Control",
       vista: "panel",
       logo: <GiTakeMyMoney className="m-2 text-lg" />,
+      roles: [2]
     },
 
 
     {
       nombre: "Oxigeno",
       url: "http://128.0.13.63:8080",
-      logo: <FaHandHoldingMedical className="m-2 text-lg" />
+      logo: <FaHandHoldingMedical className="m-2 text-lg" />,
+      roles: [2]
     },
 
 
@@ -87,6 +94,7 @@ function Slider({
       nombre: "Causa Externa",
       url: "http://128.0.18.50:3002/causaExterna.html?",
       logo: <FaFileMedicalAlt className="m-2 text-lg" />,
+      roles: [2]
     },
 
 
@@ -94,6 +102,7 @@ function Slider({
       nombre: "Entregas Facturacion",
       url: "http://128.0.18.50:4858/facturacion.html",
       logo: <GiTakeMyMoney className="m-2 text-lg" />,
+      roles: [2]
     }
   ];
 
@@ -192,11 +201,6 @@ function Slider({
             </div>
           ))}
         </nav>
-
-        <div className="absolute bottom-8 left-6 text-white/80 text-sm">
-          <p className="font-semibold">¿Necesitas ayuda?</p>
-          <p>Soporte interno</p>
-        </div>
       </aside>
 
 
@@ -223,7 +227,7 @@ function Slider({
               <input
                 type="search"
                 className="w-[460px] h-13 bg-[#f1f5fb] rounded-2xl px-5 pr-12 outline-none text-sm text-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-400"
-                placeholder="Buscar en la Intranet..."
+                placeholder="Buscar en la Mesa de ayuda..."
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
                 <HiOutlineMagnifyingGlass />
@@ -242,7 +246,7 @@ function Slider({
                 {logeo.nombre}
               </p>
               <p className="text-sm m-0 text-slate-500">
-                Bienvenido a la Intranet
+                Bienvenido a la Mesa de Ayuda
               </p>
             </div>
 

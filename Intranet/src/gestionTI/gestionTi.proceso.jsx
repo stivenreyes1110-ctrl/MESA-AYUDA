@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
-function Proceso({ open, onClose, respuesta,setOpen,tickets,getTickets,page,setPage }) {
+function Proceso({ open, onClose, respuesta,setOpen,tickets,getTickets,page,setPage,logeo }) {
 
   const [estado, setEstado] = useState()
   const [cambioEstado ,setCambioEstado] = useState("")
+  const id= logeo.id_usuario
  
   const postEstado = async () => {
     try {
@@ -16,7 +17,8 @@ function Proceso({ open, onClose, respuesta,setOpen,tickets,getTickets,page,setP
         body:JSON.stringify({
           estado:estado,
           id_ticket:respuesta.ID_TICKET,
-          descripcion:cambioEstado
+          descripcion:cambioEstado,
+          id_usuario:id
         })
         
       });

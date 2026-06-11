@@ -14,8 +14,15 @@ const losLogin = async ({ usuario, password }, req) => {
     const pool = await conexion();
 
 
-    let direccionIpUsuario = req.ip || req.connection.remoteAddress
+    let direccionIpUsuario =
+        req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+        req.headers['x-real-ip'] ||
+        req.ip ||
+        req.socket.remoteAddress ||
+        req.connection.remoteAddress;
+
     direccionIpUsuario = direccionIpUsuario.replace("::ffff:", "");
+
     console.log('--DIRECCION IP DEL USUARIO:', direccionIpUsuario);
 
 

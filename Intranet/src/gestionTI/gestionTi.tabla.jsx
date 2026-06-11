@@ -50,9 +50,9 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
                             className="
                     w-11 h-11
                     rounded-xl
-                    bg-slate-100
-                    text-slate-600
-                    hover:bg-slate-200
+                    bg-blue-300
+                    text-white
+                    hover:bg-blue-700
                     transition
                 "
                         >
@@ -76,7 +76,7 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
                             className="
                     w-11 h-11
                     rounded-xl
-                    bg-blue-600
+                    bg-blue-300
                     text-white
                     hover:bg-blue-700
                     transition
@@ -104,7 +104,7 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
             `}
                     >
                         <TiMinus />
-                        Por Asignar
+                        Pendientes
                     </button>
 
                     <button
@@ -216,7 +216,7 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
                     {/* BODY */}
                     <tbody>
 
-                        {tickets.map((ticket) => {
+                         {tickets.map((ticket) => {
 
                             const colorPrioridad =
                                 ticket.PRIORIDAD === "ALTA"
@@ -238,9 +238,11 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
 
 
                             let color = "";
-                            const fecha1 = new Date(fechaHora);
+                            const fecha1 = new Date(ticket.HORACIERRE);
+                            
                             const fecha2 = new Date(ticket.HORAREGISTRO);
-                            const diferencia = Math.abs(fecha1.getTime() - fecha2.getTime()) - 18000000;
+                           
+                            const diferencia = Math.abs(fecha1.getTime() - fecha2.getTime()) ;
 
                             const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
@@ -257,9 +259,9 @@ function TablaGestionTi({ setAbrir, seleccionTicket, setSeleccionTicket, setOpen
                             const minutosTotales = Math.floor(
                                 diferencia / (1000 * 60)
                             );
-                            console.log(`TKT-${ticket.ID_TICKET}: DIFERENCIA EN DIAS: `, minutosTotales)
-                            let textoCompleto = `${dias} Dia(s) ${horas} Hora(s) ${minutos} Minuto(s)`
 
+                            
+                            let textoCompleto = `${dias} Dia(s) ${horas} Hora(s) ${minutos} Minuto(s)`
                             if (minutosTotales > 55) {
                                 color = "bg-red-400";
                             } else if (minutosTotales > 30) {

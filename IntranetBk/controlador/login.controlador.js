@@ -13,7 +13,7 @@ const losLogin = async (req, res) => {
 
         const login = await loginService.losLogin(req.body, req);
 
-
+        console.log(req.body)
         return res.json(login);
 
 

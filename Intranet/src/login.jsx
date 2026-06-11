@@ -19,13 +19,20 @@ function Login({ setLogeado, setLogeo }) {
     const [password, setPassword] = useState("");
 
 
-
+const obtenerIp = async () => {
+  const resp = await fetch("https://api.ipify.org?format=json");
+  const data = await resp.json();
+  return data.ip;
+};
 
 
     //SOLIITUD DE LOGIN A LA BASE DE DATOS
     const getUsuario = async () => {
         try {
             //FECTH AL BACKEND PARA VERIFICAR USUARIO Y CONTRASEÑA    
+
+             const ip = await obtenerIp();
+             console.log(ip)
             const res = await fetch("http://128.0.18.50:3011/api/login", {
                 method: "POST",
                 headers: {
@@ -33,7 +40,9 @@ function Login({ setLogeado, setLogeo }) {
                 },
                 body: JSON.stringify({
                     usuario,
-                    password
+                    password,
+                    ip
+
                 })
             });
 

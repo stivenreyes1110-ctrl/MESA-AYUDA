@@ -14,7 +14,7 @@ const losConteos = async (req) => {
     (`        
 SELECT 
     CASE T.ESTADO
-        WHEN 1 THEN 'POR ASIGNAR'
+        WHEN 1 THEN 'PENDIENTE'
         WHEN 2 THEN 'EN PROCESO'
         WHEN 3 THEN 'SOLUCIONADO'
         ELSE 'SIN ESTADO'
@@ -82,7 +82,51 @@ const losConteoPorUsuairo = async (req) => {
   return resultado.recordset;
 };
 
+
+
+const losConteosDeTickets = async () => {
+
+  await conexion();
+
+  const resultado = await new sql.Request()
+    .query(`
+    
+    SELECT 
+    CASE T.IDSOPORTE
+        WHEN 5 THEN 'CLAUDIA '
+        WHEN 6 THEN 'ALEJANDRO '
+        WHEN 7 THEN 'STEVENS'
+		    WHEN 8 THEN 'MONICA'
+		    WHEN 9 THEN 'YEFERSON'
+          ELSE 'NICOLLE'
+    END AS IDSOPORTE,
+    COUNT(*) AS TOTAL
+    FROM TICKETSMESA T
+    GROUP BY T.IDSOPORTE
+    ORDER BY TOTAL DESC
+    
+    `)
+  return resultado.recordset;
+}
+
+const lasDiferencia = async () => {
+  const pool = await conexion()
+  const resulta =await new sql.Request()
+  .query (`
+  SELECT 
+  *,
+  DATEDIFF(MINUTE,HORAREGISTRO,HORACIERRE) AS HORA_DIFF
+  FROM TICKETSMESA
+  WHERE ID >= 299
+  `)
+  return resulta.recordset;
+}
+
+
+
 module.exports = {
   losConteos,
-  losConteoPorUsuairo
+  losConteoPorUsuairo,
+  losConteosDeTickets,
+  lasDiferencia
 }

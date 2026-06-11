@@ -152,7 +152,7 @@ return (
 
                         
                         <option key={area.ID} value={area.ID}>
-                           PISO{area.PISO} {area.NOMBRE}
+                          {area.NOMBRE}
                         </option>
                     ))}
                 </select>

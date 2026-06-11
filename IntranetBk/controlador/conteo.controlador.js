@@ -29,4 +29,28 @@ const losConteoPorUsuairo = async (req, res) => {
     }
 }
 
-module.exports = { losConteos, losConteoPorUsuairo }
+
+const losConteosDeTickets = async (req, res) => {
+    try {
+        console.log("ENTRO A CONTEO DE TICKETS POR SOPORTE")
+
+        const result = await conteoService.losConteosDeTickets()
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ ok: false, mensaje: "Error del servidor" })
+    }
+}
+
+const lasDiferencia = async (req, res) => {
+    try {
+        const result = await conteoService.lasDiferencia()
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ok:false, mensaje: "Error de Servidor"})
+    }
+
+}
+
+module.exports = { losConteos, losConteoPorUsuairo, losConteosDeTickets ,lasDiferencia}

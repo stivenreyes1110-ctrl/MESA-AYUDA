@@ -4,11 +4,11 @@ const cors = require('cors');
 const { conexion } = require("./config/db")
 
 const app = express();
-
+app.set('trust proxy', true);
 app.use(cors());
 
 
-const validarToken = require('../IntranetBk/middleware/validar.token');
+const validarToken = require('./middleware/validar.token');
 
 
 const rutaUsuarios = require('./rutas/usuario.rutas');
@@ -91,7 +91,7 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
                     U.ID AS ID_SOLICITANTE,
                     U.NOMBRE AS USUARIO_SOLICITANTE,
                     CASE 
-                        WHEN T.ESTADO = 1 THEN 'POR ASIGNAR'
+                        WHEN T.ESTADO = 1 THEN 'PENDIENTE'
                         WHEN T.ESTADO = 2 THEN 'EN PROCESO'
                         WHEN T.ESTADO = 3 THEN 'SOLUCIONADO'
                         ELSE 'SIN ESTADO'
@@ -123,7 +123,7 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
 
                 WHERE U.ID = @id_usuario ${anexo}
 
-                ORDER BY T.HORAREGISTRO DESC    
+                ORDER BY T.ID DESC    
 
                 OFFSET ${(page - 1) * 10} ROWS
                 FETCH NEXT 10 ROWS ONLY;
