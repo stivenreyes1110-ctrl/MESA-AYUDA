@@ -25,7 +25,7 @@ function HeaderGestionTi(fechaHora,setFechaHora) {
                     <div>
 
                         <h1 className="text-3xl font-bold text-[#0b2756]">
-                            Gestion Ti
+                            Gestion Ti PRUEBAS
                         </h1>
 
                         <p className="text-slate-500 text-sm mt-1">

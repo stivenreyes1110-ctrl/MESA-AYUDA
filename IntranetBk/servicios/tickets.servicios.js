@@ -38,6 +38,7 @@ SELECT
     T.CONTESTACION,
     T.IDSOPORTE,
     US.NOMBRE AS USUARIO_ASIGNADO,
+    T.ARCHIVO_URL,
 
     I.NOMBRE AS INCIDENTE,
     A.NOMBRE AS AREA,
@@ -99,38 +100,39 @@ const crearLosTickets = async (datos) => {
     request.input("descripcion", sql.VarChar, datos.descripcion);
     request.input("ubicacion", sql.VarChar, datos.ubicacion);
     request.input("direccion", sql.VarChar, datos.direccion);
-    request.input("idusuario", sql.Int, datos.logeo.id_usuario);
-
+    request.input("idusuario", sql.Int, datos.idusuario);
+    request.input("archivoUrl", sql.VarChar, datos.archivoUrl);
 
     const resultado = await request.query(`
-    INSERT INTO TICKETSMESA
-    (
-      IDINCIDENTE,
-      IDAREA,
-      IDSEDE,
-      PRIORIDAD,
-      DESCRIPCION,
-      UBICACIONFISICA,
-      ESTADO,
-      DIRIP,
-      IDUSUARIO,
-      IDMESA
-    )
-    VALUES
-    (
-      @incidente,
-      @area,
-      @sede,
-      @prioridad,
-      @descripcion,
-      @ubicacion,
-      1,
-        @direccion,
-      @idusuario,
-      1
-      
-    )
-  `);
+        INSERT INTO TICKETSMESA
+        (
+            IDINCIDENTE,
+            IDAREA,
+            IDSEDE,
+            PRIORIDAD,
+            DESCRIPCION,
+            UBICACIONFISICA,
+            ESTADO,
+            DIRIP,
+            IDUSUARIO,
+            IDMESA,
+            ARCHIVO_URL
+        )
+        VALUES
+        (
+            @incidente,
+            @area,
+            @sede,
+            @prioridad,
+            @descripcion,
+            @ubicacion,
+            1,
+            @direccion,
+            @idusuario,
+            1,
+            @archivoUrl
+        )
+    `);
 
     return resultado;
 };

@@ -1,7 +1,9 @@
 const sql = require('mssql');
 const express = require('express');
 const cors = require('cors');
+const multer = require('multer')
 const { conexion } = require("./config/db")
+const path = require('path')
 
 const app = express();
 app.set('trust proxy', true);
@@ -9,6 +11,8 @@ app.use(cors());
 
 
 const validarToken = require('./middleware/validar.token');
+
+
 
 
 const rutaUsuarios = require('./rutas/usuario.rutas');
@@ -32,7 +36,10 @@ app.use('/api', rutaIncidentes);
 app.use('/api', rutaSedes);
 app.use('/api', rutaConteo)
 app.use('/api', rutaLogin)
-
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "uploads"))
+);
 
 //2. TICKETS PRINCIPAL MESA AYUDA
 app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req, res) => {
@@ -151,7 +158,7 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
     }
 });
 
-app.listen(3011, () => {
+app.listen(3011,"0.0.0.0", () => {
     console.log('🚀 Servidor en puerto 3011');
     console.log(" ");
     console.log(" ");

@@ -47,6 +47,7 @@ function GestionTi({ logeo, fechaHora ,filtroTickets,setFiltroTickets}) {
    const getTickets = async () => {
       try {
          const res = await fetch(`http://128.0.18.50:3011/api/tickets/${page}/${id_usuario}/${idsoporte}/${filtroTickets}`);
+         console.log(res)
          const data = await res.json();
          setTickets(data);
       } catch (error) {

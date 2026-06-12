@@ -15,11 +15,8 @@ const losLogin = async ({ usuario, password }, req) => {
 
 
     let direccionIpUsuario =
-        req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
-        req.headers['x-real-ip'] ||
-        req.ip ||
-        req.socket.remoteAddress ||
-        req.connection.remoteAddress;
+        req.headers["x-forwarded-for"]?.split(",")[0] ||
+        req.socket.remoteAddress;
 
     direccionIpUsuario = direccionIpUsuario.replace("::ffff:", "");
 
@@ -95,7 +92,7 @@ const losLogin = async ({ usuario, password }, req) => {
         id_usuario: usuarioConsultado.IDUSUARIO,
         usuario: usuarioConsultado.USUARIO,
         nombre: usuarioConsultado.NOMBRE,
-        idrol: usuarioConsultado.IDROL
+        idrol: usuarioConsultado.IDROL,
 
     };
 

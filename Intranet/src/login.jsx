@@ -17,6 +17,7 @@ function Login({ setLogeado, setLogeo }) {
     //DATOS DE LOGIN
     const [usuario, setUsuario] = useState("");
     const [password, setPassword] = useState("");
+    const IPBASE = 'http://128.0.18.50:3011'
 
 
 const obtenerIp = async () => {
@@ -26,6 +27,7 @@ const obtenerIp = async () => {
 };
 
 
+    //SOLIITUD DE LOGIN A LA BASE DE DATOS
     //SOLIITUD DE LOGIN A LA BASE DE DATOS
     const getUsuario = async () => {
         try {

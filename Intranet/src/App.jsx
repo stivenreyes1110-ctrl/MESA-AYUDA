@@ -40,6 +40,8 @@ function App() {
   const [conteo, setConteo] = useState([])
 
 
+
+  const IPBASE = 'http://128.0.18.50:3011'
   useEffect(() => {
 
 
@@ -92,7 +94,7 @@ function App() {
   const getArea = async () => {
     try {
 
-      const respuesta = await fetch("http://128.0.18.50:3011/api/areas", {
+      const respuesta = await fetch(`${IPBASE}/api/areas`, {
 
 
         method: "GET",
@@ -143,7 +145,7 @@ function App() {
     try {
 
 
-      const respuesta = await fetch("http://128.0.18.50:3011/api/sedes",
+      const respuesta = await fetch(`${IPBASE}/api/sedes`,
         {
           method: "GET",
           headers: {
@@ -188,7 +190,7 @@ function App() {
     try {
 
 
-      const respuesta = await fetch("http://128.0.18.50:3011/api/usuarios", {
+      const respuesta = await fetch(`${IPBASE}/api/usuarios`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -223,7 +225,7 @@ function App() {
     try {
 
 
-      const respuesta = await fetch("http://128.0.18.50:3011/api/incidentes", {
+      const respuesta = await fetch(`${IPBASE}/api/incidentes`, {
         method: "GET",
         headers: {
           "content-Type": "application/json",
@@ -258,7 +260,7 @@ function App() {
     try {
 
 
-      const res = await fetch(`http://128.0.18.50:3011/api/filtro/${page}/${id_usuario}/${filtroTickets}`, {
+      const res = await fetch(`${IPBASE}/api/filtro/${page}/${id_usuario}/${filtroTickets}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -299,7 +301,7 @@ function App() {
     try {
 
 
-      const respuesta = await fetch(`http://128.0.18.50:3011/api/conteo/usuario/${id}`)
+      const respuesta = await fetch(`${IPBASE}/api/conteo/usuario/${id}`)
 
 
       const data = await respuesta.json();

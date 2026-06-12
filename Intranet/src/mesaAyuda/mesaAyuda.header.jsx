@@ -22,7 +22,7 @@ function HeaderMesaAyuda({ setModalAbierto, fechaHora, setFechaHora }) {
                     <div>
 
                         <h1 className="text-3xl font-bold text-[#0b2756]">
-                            Mesa de Ayuda
+                            Mesa de Ayuda PRUEBAS
                         </h1>
 
                         <p className="text-slate-500 text-sm mt-1">

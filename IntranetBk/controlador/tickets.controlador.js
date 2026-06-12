@@ -24,8 +24,12 @@ const crearLosTickets = async (req, res) => {
   try {
 
     console.log(req.body);
+    const archivoUrl = req.file ? `${req.protocol}://${req.get('host')}/uploads/TICS/${req.file.filename}` : null
 
-    const data = await ticketsServie.crearLosTickets(req.body);
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+    datos = { ...req.body, archivoUrl }
+    const data = await ticketsServie.crearLosTickets(datos);
 
     res.json({
       ok: true,
@@ -62,9 +66,11 @@ const asignarLos = async (req, res) => {
 
 const actualizarEstado = async (req, res) => {
   try {
+
+
     console.log("Entro a el endpoint")
     const pool = await conexion();
-    const { estado, id_ticket, descripcion,id_usuario } = req.body;
+    const { estado, id_ticket, descripcion, id_usuario } = req.body;
     const query = `
   UPDATE TICKETSMESA 
   SET ESTADO = @estado,
