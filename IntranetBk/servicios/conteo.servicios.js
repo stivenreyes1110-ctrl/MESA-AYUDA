@@ -46,7 +46,7 @@ const losConteoPorUsuairo = async (req) => {
 
   await conexion();
 
-  const { id } = req.params;
+  const { id,mesa } = req.params;
 
   const resultado = await new sql.Request()
     .input("id", sql.Int, id)
@@ -66,6 +66,7 @@ const losConteoPorUsuairo = async (req) => {
       LEFT JOIN TICKETSMESA T 
           ON T.ESTADO = E.ID
           AND T.IDUSUARIO = @id
+          AND T.IDMESA = ${mesa}
 
       GROUP BY E.ID, E.ESTADO
 
@@ -75,7 +76,7 @@ const losConteoPorUsuairo = async (req) => {
           'TOTAL GENERAL',
           COUNT(*)
       FROM TICKETSMESA
-      WHERE IDUSUARIO = @id
+      WHERE IDUSUARIO = @id AND IDMESA = ${mesa}
     
     `);
 

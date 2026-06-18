@@ -2,28 +2,26 @@ require('dotenv').config();
 
 
 const sql = require('mssql');
+
 const crypto = require('crypto');
+
 const jwt = require('jsonwebtoken');
 
 const { conexion } = require('../config/db');
 
 
-const losLogin = async ({ usuario, password }, req) => {
+
+const losLogin = async ({ usuario, password,mesa }, req) => {
+
 
 
     const pool = await conexion();
 
-
-    let direccionIpUsuario =
-        req.headers["x-forwarded-for"]?.split(",")[0] ||
-        req.socket.remoteAddress;
+    let direccionIpUsuario = req.headers["x-forwarded-for"]?.split(",")[0] ||req.socket.remoteAddress;
 
     direccionIpUsuario = direccionIpUsuario.replace("::ffff:", "");
 
     console.log('--DIRECCION IP DEL USUARIO:', direccionIpUsuario);
-
-
-    /*console.log("SERVIDOR DE LA BASE DE DATOS:", process.env.DB_SERVER);*/
 
 
     let consultaAcesso = `
@@ -93,6 +91,7 @@ const losLogin = async ({ usuario, password }, req) => {
         usuario: usuarioConsultado.USUARIO,
         nombre: usuarioConsultado.NOMBRE,
         idrol: usuarioConsultado.IDROL,
+        mesa:mesa
 
     };
 

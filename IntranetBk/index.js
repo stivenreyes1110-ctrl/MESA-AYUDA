@@ -42,7 +42,7 @@ app.use(
 );
 
 //2. TICKETS PRINCIPAL MESA AYUDA
-app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req, res) => {
+app.get('/api/filtro/:page/:id_usuario/:filtroTickets/:mesa', validarToken, async (req, res) => {
     try {
 
 
@@ -50,35 +50,28 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
         let anexo = "";
 
 
-        const { page, id_usuario, filtroTickets } = req.params;
+        const { page, id_usuario, filtroTickets,mesa } = req.params;
 
 
-        console.log("2.ENTRO A TICKETS MESA DE AYUDA POR USUARIO:", id_usuario, "PAGE:", page, "FILTRO TICKETS: ", filtroTickets);
+        console.log("2.ENTRO A TICKETS MESA DE AYUDA POR USUARIO:", id_usuario, "PAGE:", page, "FILTRO TICKETS: ", filtroTickets ,'mesa', mesa);
         console.log(" ")
         console.log(" ")
 
         if (filtroTickets === '1' || filtroTickets === '2' || filtroTickets === '3') {
 
 
-            anexo = `  AND T.ESTADO = ${filtroTickets} `
+            anexo = `  AND T.ESTADO = ${filtroTickets}  AND T.IDMESA = ${mesa}`
 
 
         } else {
 
 
-            anexo = "";
+            anexo = `  AND T.IDMESA = ${mesa}` ;
 
 
         }
 
-
-        const pool = await conexion();
-
-
-        const result = await pool.request()
-            .input("id_usuario", sql.Int, id_usuario)
-            .input("page", sql.Int, page)
-            .query(`
+        let  query = `
                 SELECT 
                     T.ID AS ID_TICKET,
                     T.DIRIP,
@@ -89,6 +82,7 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
                     T.DESCRIPCION,
                     T.CONTESTACION, 
                     T.IDSOPORTE,
+                    T.IDMESA,
                     US.NOMBRE AS USUARIO_ASIGNADO,
 
                     I.NOMBRE AS INCIDENTE,
@@ -136,7 +130,16 @@ app.get('/api/filtro/:page/:id_usuario/:filtroTickets', validarToken, async (req
                 FETCH NEXT 10 ROWS ONLY;
 
 
-`)
+`
+        const pool = await conexion();
+
+
+        const result = await pool.request()
+            .input("id_usuario", sql.Int, id_usuario)
+            .input("page", sql.Int, page)
+            .query(query)
+
+        console.log(query)
 
 
         await res.json(result.recordset);

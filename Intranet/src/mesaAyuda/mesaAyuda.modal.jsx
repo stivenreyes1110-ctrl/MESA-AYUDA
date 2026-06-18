@@ -63,6 +63,7 @@ function ModalMesaAyuda({
         formData.append("usuarios", logeo.nombre);
         formData.append("direccion", logeo.ip);
         formData.append("idusuario", logeo.id_usuario);
+        formData.append("mesa", logeo.mesa)
 
         if (archivo) {
             formData.append("archivo", archivo);
