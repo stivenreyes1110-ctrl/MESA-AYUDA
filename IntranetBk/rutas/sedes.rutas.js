@@ -5,9 +5,19 @@ const validarToken = require('../middleware/validar.token');
 const sedesControlador =  require('../controlador/sedes.controlador')
 
 
-//RUTA DE SEDES
-router.get('/sedes', validarToken, sedesControlador.lasSedes)
+/*
+==================================================
+INDICE
+==================================================
 
+1. SEDES
+
+==================================================
+*/
+
+
+//1. SEDES
+router.get('/sedes', validarToken, sedesControlador.lasSedes)
 
 
 module.exports = router

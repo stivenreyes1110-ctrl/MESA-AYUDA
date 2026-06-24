@@ -2,25 +2,37 @@ const sql  =  require('mssql')
 const { conexion } = require('../config/db')
 
 
-//SERVICIOS DE SEDES
+/*
+==================================================
+INDICE
+==================================================
+
+1. SEDES
+
+==================================================
+*/
+
+
+//1. SEDES
 const lasSedes = async () =>{
 
 
-    await conexion()
+    const pool = await conexion()
+    const query = `
 
+
+                  SELECT * FROM SEDESCLB 
+                    
+
+                  `
 
     console.log('--SE HIZO UNA CONSULTA DE SEDES')
 
 
-    const resultado = await sql.query(`
+    const resultado = await pool.query(query)
 
 
-        SELECT * FROM SEDESCLB 
-        
-
-        `)
-
-        return resultado.recordset
+    return resultado.recordset
 
 
 }

@@ -1,10 +1,8 @@
-// ======================================================
-// 1. IMPORTACIONES
-// ======================================================
 import { useState, useEffect } from 'react';
 
 import Slider from './slider';
 import Login from './login';
+import logger, { profileFetch } from './utils/logger';
 
 import './App.css';
 
@@ -106,11 +104,13 @@ function App() {
 
           setLogeado(true);
 
-          console.log(
+          logger.info(
+            "AUTH",
             "SE ESTAN INCIANDO LOS FETCH PRINCIPALES"
           );
 
-          console.log(
+          logger.info(
+            "AUTH",
             "1.DATOS DE LOGEO:",
             usuario
           );
@@ -119,7 +119,8 @@ function App() {
 
       } catch (error) {
 
-        console.log(
+        logger.error(
+          "AUTH",
           "Error al iniciar sesión:",
           error
         );
@@ -143,7 +144,7 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
+      const respuesta = await profileFetch(
         `${IPBASE}/api/areas`,
         {
           method: "GET",
@@ -168,7 +169,8 @@ function App() {
 
       setAreas(data);
 
-      console.log(
+      logger.info(
+        "FETCH_AREAS",
         "2.DATOS DE ÁREAS:",
         data
       );
@@ -177,7 +179,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_AREAS", "Falla al obtener áreas", error);
 
       cerrarSesion();
 
@@ -196,7 +198,7 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
+      const respuesta = await profileFetch(
         `${IPBASE}/api/sedes`,
         {
           method: "GET",
@@ -213,7 +215,8 @@ function App() {
 
       setSedes(data);
 
-      console.log(
+      logger.info(
+        "FETCH_SEDES",
         "3.DATOS DE SEDES:",
         data
       );
@@ -222,7 +225,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_SEDES", "Falla al obtener sedes", error);
 
       cerrarSesion();
 
@@ -241,7 +244,7 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
+      const respuesta = await profileFetch(
         `${IPBASE}/api/usuarios`,
         {
           method: "GET",
@@ -257,7 +260,8 @@ function App() {
 
       setUsuarios(data);
 
-      console.log(
+      logger.info(
+        "FETCH_USUARIOS",
         "4.DATOS DE USUARIOS:",
         data
       );
@@ -266,7 +270,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_USUARIOS", "Falla al obtener usuarios", error);
 
       cerrarSesion();
 
@@ -285,7 +289,7 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
+      const respuesta = await profileFetch(
         `${IPBASE}/api/incidentes`,
         {
           method: "GET",
@@ -303,7 +307,8 @@ function App() {
 
       setIncidentes(data);
 
-      console.log(
+      logger.info(
+        "FETCH_INCIDENTES",
         "5.DATOS DE INCIDENTES:",
         data
       );
@@ -312,7 +317,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_INCIDENTES", "Falla al obtener incidentes", error);
 
       cerrarSesion();
 
@@ -334,7 +339,7 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
+      const respuesta = await profileFetch(
         `${IPBASE}/api/filtro/${page}/${id_usuario}/${filtroTickets}/${mesa}`,
         {
           method: "GET",
@@ -352,7 +357,8 @@ function App() {
 
       setTickets(data);
 
-      console.log(
+      logger.info(
+        "FETCH_TICKETS",
         "6.DATOS DE TICKETS:",
         data
       );
@@ -361,7 +367,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_TICKETS", "Falla al obtener tickets", error);
 
       cerrarSesion();
 
@@ -380,16 +386,25 @@ function App() {
 
     try {
 
-      const respuesta = await fetch(
-        `${IPBASE}/api/conteo/usuario/${id}/${mesa}`
+      const respuesta = await profileFetch(
+        `${IPBASE}/api/conteo/usuario/${id}/${mesa}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type":
+              "application/json",
+            "Authorization":
+              `Bearer ${logeo.token}`
+          }
+        }
       );
 
-      const data =
-        await respuesta.json();
+      const data = await respuesta.json();
 
       setConteo(data);
 
-      console.log(
+      logger.info(
+        "FETCH_CONTEO",
         "7.DATOS DE CONTEO:",
         data
       );
@@ -398,7 +413,7 @@ function App() {
 
     } catch (error) {
 
-      console.log(error);
+      logger.error("FETCH_CONTEO", "Falla al obtener conteo", error);
 
       cerrarSesion();
 

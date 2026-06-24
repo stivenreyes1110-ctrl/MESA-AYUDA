@@ -1,6 +1,6 @@
 import { useState } from "react";
 import mesa from "./assets/mesa.png";
-import MesaAyuda from "../src/mesaAyuda";
+import SolicitudesSoporte from "./solicitudesSoporte/solicitudesSoporte";
 import { FaRegBell } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { IoMenu } from "react-icons/io5";
@@ -11,13 +11,14 @@ import {
 } from "react-icons/fa";
 import { AiOutlineFileProtect } from 'react-icons/ai'
 import { GiTakeMyMoney } from "react-icons/gi";
-import GestionTi from "./gestionTi";
+import GestionTickets from "./gestionTickets/gestionTickets";
 import { FaComputer } from "react-icons/fa6";
 import logo from "./assets/logo.png"
-import TodosGraficos from "./panelControl";
+import Indicadores from "./indicadores/indicadores";
 import { useEffect } from "react";
 import { FaPersonDrowning } from "react-icons/fa6";
-import { HiOutlineMagnifyingGlass } from "react-icons/hi2"
+import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { useRenderProfiler } from "./utils/logger";
 
 
 function Slider({
@@ -45,7 +46,6 @@ function Slider({
 
 }) {
 
-
   let timer;
   const [vista, setVista] = useState("inicio")
   const [open, setOpen] = useState(false);
@@ -55,14 +55,14 @@ function Slider({
 
 
     {
-      nombre: "Mesa De Ayuda",
+      nombre: "Solicitudes de Soporte",
       vista: "mesa",
       logo: <AiOutlineFileProtect className="m-2 text-lg" />,
     },
 
 
     {
-      nombre: "Gestion Ti",
+      nombre: "Gestión Tickets",
       vista: "gestion",
       logo: <FaComputer className="m-2 text-lg" />,
       roles: [2]
@@ -75,7 +75,7 @@ function Slider({
     },
 
     {
-      nombre: "panel Control",
+      nombre: "Indicadores",
       vista: "panel",
       logo: <GiTakeMyMoney className="m-2 text-lg" />,
       roles: [2]
@@ -117,19 +117,19 @@ function Slider({
 
 
       case "mesa":
-        return <MesaAyuda onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
+        return <SolicitudesSoporte onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
 
       case "gestion":
-        return <GestionTi onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
+        return <GestionTickets onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
         
       case "panel":
-        return <TodosGraficos logeo={logeo} onClick={() => { setPage(1) }} />;
+        return <Indicadores logeo={logeo} onClick={() => { setPage(1) }} />;
 
 
       default:
-        return <MesaAyuda onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
+        return <SolicitudesSoporte onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
 
     }
@@ -149,7 +149,7 @@ function Slider({
     }, 60000);
 
 
-    return () => clearInterval(timer);
+    return () => clearInterval(intervalo);
 
 
   }, []);

@@ -1,7 +1,18 @@
 const incidentesService = require('../servicios/incidentes.servicios')
 
 
-//CONTROLADOR DE INCIDENTES
+/*
+==================================================
+INDICE
+==================================================
+
+1. INCIDENTESPORMESA
+
+==================================================
+*/
+
+
+//1. INCIDENTESPORMESA
 const losIncidentes = async (req, res) => {
     try {
 

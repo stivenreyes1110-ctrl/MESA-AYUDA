@@ -1,7 +1,19 @@
 const express = require('express')
 const areaServices = require('../servicios/areas.servicios');
 
-//2. CONTROLADOR DE AREAS
+
+/*
+==================================================
+INDICE
+==================================================
+
+1. CONTROLADOR DE AREAS
+
+==================================================
+*/
+
+
+//1. CONTROLADOR DE AREAS
 const lasAreas = async (req, res) => {
     try {
 

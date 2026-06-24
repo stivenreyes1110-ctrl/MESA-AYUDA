@@ -6,12 +6,24 @@ const validarToken = require('../middleware/validar.token');
 const usuariosControlador = require('../controlador/usuario.controlador');
 
 
-//1. RUTAS DE USUARIOS
+/*
+==================================================
+INDICE
+==================================================
+
+1. LOSUSUARIOS
+2. LOSSOPORTES
+
+==================================================
+*/
+
+
+//1. LOSUSUARIOS
 router.get('/usuarios',validarToken,usuariosControlador.losUsuarios);
 
 
-//2. RUTAS DE USUARIOS SOPORTES
-router.get('/usuarios/soporte',usuariosControlador.losSoportes);
+//2. LOSSOPORTES 
+router.get('/usuarios/soporte/:mesa',usuariosControlador.losSoportes);
 
 
 module.exports = router;

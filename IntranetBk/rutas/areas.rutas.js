@@ -5,7 +5,18 @@ const validarToken = require('../middleware/validar.token');
 const areasControlador = require('../controlador/areas.controlador');
 
 
-//2. RUTA DE AREAS
+/*
+==================================================
+INDICE
+==================================================
+
+1. RUTA DE AREAS
+
+==================================================
+*/
+
+
+//1. RUTA DE AREAS
 router.get('/areas', validarToken, areasControlador.lasAreas);
 
 

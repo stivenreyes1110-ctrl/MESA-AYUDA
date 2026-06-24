@@ -2,7 +2,18 @@ const sql = require('mssql');
 const {conexion} = require('../config/db');
 
 
-//2. SERVICIOS DE AREAS
+/*
+==================================================
+INDICE
+==================================================
+
+1. SERVICIOS DE AREAS
+
+==================================================
+*/
+
+
+//1. SERVICIOS DE AREAS
 const lasAreas = async () =>{
 
 

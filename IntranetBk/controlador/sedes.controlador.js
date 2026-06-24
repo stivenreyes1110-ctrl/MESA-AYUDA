@@ -1,7 +1,18 @@
 const sedesService = require('../servicios/sedes.servicios')
 
 
-//CONTROLADOR DE SEDES
+/*
+==================================================
+INDICE
+==================================================
+
+1. SEDES
+
+==================================================
+*/
+
+
+//1. SEDES
 const lasSedes = async (req, res) => {
     try {
 

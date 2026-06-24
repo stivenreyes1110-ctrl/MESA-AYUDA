@@ -1,8 +1,19 @@
 const usuarioService = require('../servicios/usuario.servicios');
 
 
+/*
+==================================================
+INDICE
+==================================================
 
-//1. CONTROLADOR DE USUARIOS
+1. LOSUSUARIOS
+2. LOSSOPORTES
+
+==================================================
+*/
+
+
+//1. LOSUSUARIOS
 const losUsuarios = async (req, res) => {
     try {
 
@@ -36,21 +47,39 @@ const losUsuarios = async (req, res) => {
 
 
 
-
+//2. LOSSOPORTES
 const losSoportes = async (req, res) => {
     try {
+
+
         console.log('SE HIZO UNA CONSULTA DE USUARIOS SOPORTES')
-        const soportes = await usuarioService.LosSoportes();
+
+
+        const {mesa} = req.params
+
+
+        const soportes = await usuarioService.losSoportes(mesa);
+
+
         res.json(soportes)
+
+        
     } catch (error) {
+
+
         console.log(error);
-        res.status(500).json({
-            error: 'Error del servidor'
-        })
+        res.status(500).json({error: 'Error del servidor'})
+
+
     }
 }
 
+
 module.exports = {
+
+
     losUsuarios,
     losSoportes
+
+    
 }

@@ -4,11 +4,22 @@ const sql = require("mssql");
 const { conexion } = require('../config/db');
 
 
-//SERVICIOS DE INCIDENTES
+/*
+==================================================
+INDICE
+==================================================
+
+1. INCIDENTESPORMESA
+
+==================================================
+*/
+
+
+//1. INCIDENTESPORMESA
 const losIncidentes = async () => {
 
 
-    await conexion();
+    const pool = await conexion();
 
 
     console.log('--SE HIZO UNA CONSULTA DE INCIDENTES')
@@ -16,7 +27,7 @@ const losIncidentes = async () => {
     console.log(" ");
 
 
-    const resultado = await sql.query(
+    const resultado = await pool.query(
         `
 
         

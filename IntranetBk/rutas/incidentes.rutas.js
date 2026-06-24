@@ -6,7 +6,18 @@ const validarToken = require('../middleware/validar.token');
 const incidentesControlador = require('../controlador/incidentes.controlador')
 
 
-//RUTAS DE INCIDENTES
+/*
+==================================================
+INDICE
+==================================================
+
+1. INCIDENTESPORMESA
+
+==================================================
+*/
+
+
+//1. INCIDENTESPORMESA
 router.get('/incidentes', validarToken, incidentesControlador.losIncidentes)
 
 
