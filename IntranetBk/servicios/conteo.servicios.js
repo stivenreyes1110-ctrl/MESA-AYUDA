@@ -97,25 +97,17 @@ const losConteos = async (req) => {
   const pool = await conexion();
 
 
-  const { id_rol, mesa } = req.params;
+  const { id_rol, mesa,id_soporte } = req.params;
 
 
-  let anexo = '';
+  let where = `WHERE T.IDMESA = @mesa`;
 
 
-  if (id_rol == 5 || id_rol == 6 || id_rol == 7 || id_rol == 9) {
-
-
-    anexo = `WHERE T.IDSOPORTE = @id_rol AND T.IDMESA = @mesa`;
-
-
-  } else {
-
-
-    anexo = `WHERE T.IDMESA = @mesa`
-
-
+  // SOPORTE: solo tickets asignados a él
+  if (Number(id_rol) === 2) {
+    where += ` AND T.IDSOPORTE = @id_soporte`;
   }
+
 
 
   const query = `        
@@ -132,7 +124,7 @@ const losConteos = async (req) => {
 
                   FROM TICKETSMESA T
 
-                  ${anexo}
+                  ${where}
 
                   GROUP BY T.ESTADO
 
@@ -148,13 +140,14 @@ const losConteos = async (req) => {
 
                   FROM TICKETSMESA T
 
-                  ${anexo}
+                  ${where}
         `
 
 
   const resultado = await pool.request()
     .input("id_rol", sql.Int, id_rol)
     .input("mesa", sql.Int, mesa)
+    .input("id_soporte", sql.Int, id_soporte)
     .query(query)
 
 

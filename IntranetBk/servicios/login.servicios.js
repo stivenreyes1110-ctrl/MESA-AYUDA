@@ -91,7 +91,8 @@ const losLogin = async ({ usuario, password,mesa }, req) => {
         usuario: usuarioConsultado.USUARIO,
         nombre: usuarioConsultado.NOMBRE,
         idrol: usuarioConsultado.IDROL,
-        mesa:mesa
+        mesa:mesa,
+        idmesa:usuarioConsultado.IDMESA
 
     };
 

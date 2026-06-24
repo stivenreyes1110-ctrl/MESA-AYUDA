@@ -60,7 +60,7 @@ INDICE
 
 
 //1. TABLATICKETGENERALCONFILTROSOPORTE
-router.get('/tickets/:page/:id_usuario/:idsoporte/:filtroTickets/:mesa',validarToken ,ticketsControlador.losTickets );
+router.get('/tickets/:page/:id_usuario/:idsoporte/:filtroTickets/:mesa/:idrol',validarToken ,ticketsControlador.losTickets );
 
 
 //2. CREARTICKETCONFOTO

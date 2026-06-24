@@ -13,8 +13,9 @@ import { FaBoxesStacked } from "react-icons/fa6";
 
 function TarjetasGestionTickets({ logeo, modalAbierto, setModalAbierto ,open,setOpen}) {
     const [conteo, setConteo] = useState([]);
-    const [id_rol, setIdRol] = useState(logeo.id);
+    const [id_rol, setIdRol] = useState(logeo.idrol);
     const mesa = logeo.mesa
+    const id_soporte = logeo.id
 
     useEffect(() => {
         getConteo();
@@ -22,7 +23,7 @@ function TarjetasGestionTickets({ logeo, modalAbierto, setModalAbierto ,open,set
 
     const getConteo = async () => {
         try {
-            const respuesta = await fetch(`http://128.0.18.50:3011/api/conteo/${id_rol}/${mesa}`,
+            const respuesta = await fetch(`http://128.0.18.50:3011/api/conteo/${id_rol}/${mesa}/${id_soporte}`,
         {
           method: "GET",
           headers: {

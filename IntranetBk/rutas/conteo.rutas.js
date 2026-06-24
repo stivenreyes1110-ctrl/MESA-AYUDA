@@ -32,7 +32,7 @@ router.get('/conteo/diferencia', validarToken, conteControlador.lasDiferencia)
 
 
 //4. LOSCONTEOSINDIVIDUALPORSOPORTE - GESTIONTICKETS:TARJETAS.JSX
-router.get('/conteo/:id_rol/:mesa',validarToken ,conteControlador.losConteos)
+router.get('/conteo/:id_rol/:mesa/:id_soporte',validarToken ,conteControlador.losConteos)
 
 
 module.exports=router

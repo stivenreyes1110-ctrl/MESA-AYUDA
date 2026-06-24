@@ -31,9 +31,10 @@ const losTickets = async (req, res) => {
     const { idsoporte } = req.params;
     const { filtroTickets } = req.params;
     const { mesa } = req.params;
+    const {idrol} = req.params
 
 
-    const ticket = await ticketsServie.losTickets(page, id_usuario, idsoporte, filtroTickets, mesa);
+    const ticket = await ticketsServie.losTickets(page, id_usuario, idsoporte, filtroTickets, mesa,idrol);
 
 
     res.json(ticket)

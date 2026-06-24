@@ -37,6 +37,7 @@ function GestionTickets({ logeo, fechaHora, filtroTickets, setFiltroTickets }) {
    const [id_usuario, setIdUsuario] = useState(logeo.id_usuario);
 
    const mesa = logeo.mesa;
+   const idrol = logeo.idrol
 
    useEffect(() => {
       getTickets();
@@ -44,7 +45,7 @@ function GestionTickets({ logeo, fechaHora, filtroTickets, setFiltroTickets }) {
 
    const getTickets = async () => {
       try {
-         const res = await fetch(`http://128.0.18.50:3011/api/tickets/${page}/${id_usuario}/${idsoporte}/${filtroTickets}/${mesa}`,
+         const res = await fetch(`http://128.0.18.50:3011/api/tickets/${page}/${id_usuario}/${idsoporte}/${filtroTickets}/${mesa}/${idrol}`,
         {
           method: "GET",
           headers: {

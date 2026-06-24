@@ -49,8 +49,11 @@ function Slider({
   let timer;
   const [vista, setVista] = useState("inicio")
   const [open, setOpen] = useState(false);
+  let gestion = 0;
 
-
+  if (Number(logeo.mesa) === Number(logeo.idmesa)) {
+    gestion = Number(logeo.idrol);
+  }
   const enlaces = [
 
 
@@ -65,11 +68,16 @@ function Slider({
       nombre: "Gestión Tickets",
       vista: "gestion",
       logo: <FaComputer className="m-2 text-lg" />,
+      roles: [gestion]
+    },{
+      nombre: "Administrador Soporte",
+      vista: "Administrador",
+      logo: <GiTakeMyMoney className="m-2 text-lg" />,
       roles: [2]
     },
-        {
+    {
       nombre: "Inventario de area",
-      vista:"inventario",
+      vista: "inventario",
       logo: <GiTakeMyMoney className="m-2 text-lg" />,
       roles: [2]
     },
@@ -123,7 +131,7 @@ function Slider({
       case "gestion":
         return <GestionTickets onClick={() => { setPage(1) }} logeo={logeo} getTickets={getTickets} page={page} setPage={setPage} tickets={tickets} setTickets={setTickets} getConteo={getConteo} conteo={conteo} setConteo={setConteo} getArea={getArea} areas={areas} setAreas={setAreas} getSede={getSede} sedes={sedes} setSedes={setSedes} getIncidentes={getIncidentes} incidentes={incidentes} setIncidentes={setIncidentes} fechaHora={fechaHora} setFechaHora={setFechaHora} filtroTickets={filtroTickets} setFiltroTickets={setFiltroTickets} />;
 
-        
+
       case "panel":
         return <Indicadores logeo={logeo} onClick={() => { setPage(1) }} />;
 
